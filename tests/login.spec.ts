@@ -23,8 +23,39 @@ test("TCO1 - Longin  Happy Path", async({page})=>{
 
     await page.getByTestId("nav-home").click();
 
+// obtener la lista al dar clic en el boton de inicio
+
+    const itemsAntes = page.getByTestId("product-name")
+    await expect(itemsAntes.first()).not.toHaveText('');
+    const primerTextoInicial = await itemsAntes.first().innerText();
+    console.log(primerTextoInicial);
+
+
+
 // clic en ordenar ascendentemente 
-    await page.getByTestId("sort").selectOption({label:'Nombre (A - Z)'});
+    await page.getByTestId("sort").selectOption({label:'Nombre (A - Z)'})
+
+// validar
+
+const items = page.getByTestId("product-name")
+
+await expect(items.first()).not.toHaveText('primerTextoInicial');
+
+const nombreProductos = await items.allTextContents();
+console.log(nombreProductos);   
+
+// validar que se hayan ordenado correctamente
+
+// 1. Obtienes los textos de la pagina (limpios de espacio)
+const actualTitles = (await items.allTextContents()).map((title) => title.trim());
+
+// 2. Creas una copia del arreglo y la ordenas alfabeticamente
+const expectedTitles = [...actualTitles].sort((a, b) => a.localeCompare(b));
+
+// 3. Validas que el arreglo original sea identico al arreglo ordenado  
+expect(actualTitles).toEqual(expectedTitles);
+
+
 
 
 });
