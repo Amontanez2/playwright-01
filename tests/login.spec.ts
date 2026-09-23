@@ -47,7 +47,7 @@ console.log(nombreProductos);
 // validar que se hayan ordenado correctamente
 
 // 1. Obtienes los textos de la pagina (limpios de espacio)
-const actualTitles = (await items.allTextContents()).map((title) => title.trim());
+const actualTitles = (await items.allTextContents()).map(text => text.trim());
 
 // 2. Creas una copia del arreglo y la ordenas alfabeticamente
 const expectedTitles = [...actualTitles].sort((a, b) => a.localeCompare(b));
