@@ -39,7 +39,7 @@ test("TCO1 - Longin  Happy Path", async({page})=>{
 
 const items = page.getByTestId("product-name")
 
-await expect(items.first()).not.toHaveText('primerTextoInicial');
+await expect(items.first()).not.toHaveText(primerTextoInicial);
 
 const nombreProductos = await items.allTextContents();
 console.log(nombreProductos);   
