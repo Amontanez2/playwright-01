@@ -21,21 +21,23 @@ test("TC-COMPRA-O1 - Carrito de Compras", async({page})=>{
 
 // clic en boton de inicio 
 
-    await page.getByTestId("nav-home").click();
+    await page.getByTestId("search-query").click();
 
-// buscar producto "Hammer"
+//buscar producto "Hammer"
     await page.getByTestId("search-query").fill("Hammer");
 
-// clic en boton de buscar
+//clic en buscar
     await page.getByTestId("search-submit").click();
 
-// Seleccionar uno de los productos de manera aleatoria
 
-// 1. Obtengo todo el contenedor de tarjetas una vez que el data-test="search_completed"
+
+//Seleccionar uno de los productos de manera aleatoria
+
+    // 1. Obtengo todo el contenedor de tarjetas una vez que el data-test="search_completed"
     const tarjetas = page.locator('[data-test="search_completed"] a.card');
 
     await expect(tarjetas.first()).not.toHaveText('');
-// 2. Contar cuántas tarjetas hay disponibles en la página
+    // 2. Contar cuántas tarjetas hay disponibles en la página
     const cantidadTarjetas = await tarjetas.count();
 
     if (cantidadTarjetas > 0) {
@@ -48,6 +50,58 @@ test("TC-COMPRA-O1 - Carrito de Compras", async({page})=>{
     else {
         throw new Error('No se encontraron tarjetas de productos.');
     }
+
+     // Añadir al carrito
+
+    await page.getByTestId("add-to-cart").click();
+
+    // Verifica que se muestre mensaje de agregado
+    const toast = page.getByRole('alert', { name: 'Producto añadido al carrito.' });
+    await expect(toast).toBeVisible();
+
+    //clic en Inicio para añadir nuevo producto
+    await page.getByTestId("nav-home").click();
+    
+    //buscar producto "Ruler"
+    await page.getByTestId("search-query").fill("Ruler");
+
+    //clic en buscar
+    await page.getByTestId("search-submit").click();
+    
+
+    //Seleccionar uno de los productos de manera aleatoria
+
+    // 1. Obtengo todo el contenedor de tarjetas una vez que el data-test="search_completed"
+    const tarjetas2 = page.locator('[data-test="search_completed"] a.card');
+
+    await expect(tarjetas2.first()).not.toHaveText('');
+    // 2. Contar cuántas tarjetas hay disponibles en la página
+    const cantidadTarjetas2 = await tarjetas2.count();
+
+    if (cantidadTarjetas2 > 0) {
+        // 3. Generar un índice aleatorio entre 0 y el total de tarjetas (menos 1)
+        const randomIndex = Math.floor(Math.random() * cantidadTarjetas2);
+        
+        // 4. Hacer clic en la tarjeta seleccionada al azar
+        await tarjetas2.nth(randomIndex).click();
+    } 
+    else {
+        throw new Error('No se encontraron tarjetas de productos.');
+    }
+
+    // Añadir al carrito
+
+    await page.getByTestId("add-to-cart").click();
+
+    // Verifica que se muestre mensaje de agregado
+    const toast2 = page.getByRole('alert', { name: 'Producto añadido al carrito.' });
+    await expect(toast2).toBeVisible();
+
+    // clic en Inicio para añadir nuevo producto
+    await page.getByTestId("nav-home").click();
+    
+    // clic en Carrito de Compras
+    await page.getByTestId("nav-cart").click();
 
 });
 
