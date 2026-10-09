@@ -35,7 +35,10 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
 
-  /* Configure projects for major browsers */
+  expect: {
+    // Aumenta el tiempo para los asserts como expect().tobeVisible() o expect().toHaveText() (ej: 10 segundos)
+    timeout: 10 * 1000, // 10 segundos 
+  },
   projects: [
     {
       name: 'chromium',

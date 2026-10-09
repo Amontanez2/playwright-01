@@ -21,7 +21,7 @@ test("TC-COMPRA-O1 - Carrito de Compras", async({page})=>{
 
 // clic en boton de inicio 
 
-    await page.getByTestId("search-query").click();
+    await page.getByTestId("nav-home").click();
 
 //buscar producto "Hammer"
     await page.getByTestId("search-query").fill("Hammer");
@@ -102,6 +102,17 @@ test("TC-COMPRA-O1 - Carrito de Compras", async({page})=>{
     
     // clic en Carrito de Compras
     await page.getByTestId("nav-cart").click();
+
+    // Verificar que estemos en la pantalla de carrito de compras
+    await expect(page.getByRole('button', { name: 'Proceder al pago', exact: true })).toBeVisible();  
+
+
+
+
+
+
+
+
 
 });
 
