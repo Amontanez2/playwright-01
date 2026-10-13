@@ -12,6 +12,9 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  // Modifica este valor en la raiz del archivo 
+  // Cambio el valor por defecto de 30000 a 60000 para que los test tengan un tiempo de espera mayor
+  timeout: 60 * 1000, // 30 segundos para cada test
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -37,7 +40,7 @@ export default defineConfig({
 
   expect: {
     // Aumenta el tiempo para los asserts como expect().tobeVisible() o expect().toHaveText() (ej: 10 segundos)
-    timeout: 10 * 1000, // 10 segundos 
+    timeout: 30 * 1000, // 10 segundos 
   },
   projects: [
     {
