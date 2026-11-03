@@ -68,22 +68,7 @@ const expectedTitles = [...actualTitles].sort((a, b) => a.localeCompare(b));
 // 3. Validas que el arreglo original sea identico al arreglo ordenado  
 expect(actualTitles).toEqual(expectedTitles);
 
-// Generación del documento PDF con opciones de formato
-    await page.pdf({
-        path: 'screenshots/pantalla-inicial.pdf',
-        format: 'A4',
-        printBackground: true, // Incluye fondos y colores CSS
-        landscape: true, // <-- Configura la orientación a Horizontal (Landscape)
-        margin: {
-            top: '20mm',
-            bottom: '20mm',
-            left: '15mm',
-            right: '15mm',
-        },
-        displayHeaderFooter: true,
-        headerTemplate: '<span style="font-size:10px; margin-left: 20px;">Documento generado con - Playwright - Testing con Pablo Herrera</span>',
-        footerTemplate: '<span style="font-size:10px; margin-left: 20px;">Página <span class="pageNumber"></span> de <span class="totalPages"></span></span>',
-    });
+
 
 
 });
